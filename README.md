@@ -75,12 +75,18 @@ LaraJobs <https://larajobs.com/>
 > Y ya podemos arrancar el server:
 
 > ***EL MARAVILLOSO MUNDO DE ARTISAN***    
-> para iniciar al server es el comando
+> para iniciar al server utilizamos el comando
 
 `php artisan serve`
 
 ----
+## Iniciar el server  
+> para iniciar al server utilizamos el comando
 
+`php artisan serve`
+
+
+----
 
 ## Actualizar desde un proyecto existente
 
