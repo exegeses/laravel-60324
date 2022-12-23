@@ -11,6 +11,11 @@ Route::view('/hola.html', 'saludo');
 
 Route::get('/proceso', function()
 {
-    //acá realizamos nuestra megia
+    //acá realizamos nuestra magia
     return view('saludo');
+});
+
+Route::get('/inicio', function ()
+{
+    return view('inicio');
 });
