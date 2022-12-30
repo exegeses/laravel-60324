@@ -43,4 +43,12 @@ Route::get('/listaRegiones', function ()
     return view('listaRegiones', [ 'regiones'=>$regiones ]);
 });
 
+#############################
+#### CRUD de regiones
+Route::get('/regiones', function ()
+{
+    //obtenemos listado de regiones
+    $regiones = DB::select('SELECT idRegion, regNombre FROM regiones');
+    return view('regiones', ['regiones'=>$regiones]);
+});
 
