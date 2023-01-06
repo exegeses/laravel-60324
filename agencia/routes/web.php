@@ -151,6 +151,41 @@ Route::get('/region/delete/{id}/{region}', function ( $id, $regNombre )
             );
     }
     //retornamos vista de confirmación
-    return view('regionDelete');
-
+    return view('regionDelete',
+                    [
+                        'idRegion'=>$id,
+                        'regNombre'=>$regNombre
+                    ]
+                );
+});
+Route::delete('/region/destroy', function ()
+{
+    $regNombre = request('regNombre');
+    $idRegion = request('idRegion');
+    try {
+        /*DB::delete('DELETE FROM regiones
+                        WHERE idRegion = :idRegion',
+                                        [ $idRegion ]
+                    );*/
+        DB::table('regiones')
+                    ->where('idRegion', $idRegion)
+                    ->delete();
+        //redirección con mensaaje ok
+        return redirect('/regiones')
+            ->with(
+                [
+                    'mensaje'=>'Región: '.$regNombre.' eliminada correctamente',
+                    'css'=>'success'
+                ]
+            );
+    }catch( \Throwable $th ){
+        //redirección con mensaaje error
+        return redirect('/regiones')
+            ->with(
+                [
+                    'mensaje'=>'No se pudo eliminar la región: '.$regNombre,
+                    'css'=>'danger'
+                ]
+            );
+    }
 });
