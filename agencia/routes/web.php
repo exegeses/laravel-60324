@@ -134,3 +134,23 @@ Route::patch('/region/update', function ()
             );
     }
 });
+Route::get('/region/delete/{id}/{region}', function ( $id, $regNombre )
+{
+    //chequeo si hay un DESTINO con ese idRegion
+    $cantidad = DB::table('destinos')
+                        ->where('idRegion', $id)
+                        ->count();
+    if( $cantidad ){
+        //redirección con mensaaje error
+        return redirect('/regiones')
+            ->with(
+                [
+                    'mensaje'=>'No se puede eliminar la región: '.$regNombre.' ya que tiene destinos relacionados',
+                    'css'=>'warning'
+                ]
+            );
+    }
+    //retornamos vista de confirmación
+    return view('regionDelete');
+
+});
