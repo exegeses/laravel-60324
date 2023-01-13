@@ -53,7 +53,7 @@
 
 > La clase DB se encarga de parte de la magia
 
-<img src="../imagenes/capas-rSQL+fQB.png">
+<img src="extras/imagenes/capas-rSQL+fQB.png">
 
 
 ## Raw SQL
@@ -66,9 +66,13 @@
 ## Fluent Query Builder
 
 	DB::table('nTabla')->get()
-	DB::table('nTabla')->select('campo, campo')->get()
+	DB::table('nTabla')->select('campo, campo')->get();
+    DB::table('nTabla')->where('campo', $id)->first();
+    DB::table('nTabla')->where('campo', 'valor')
+                        ->where('campo2', 'valor')
+                        ->get();
 
-	DB::table('nTable')->insert(???)
-	DB::table('nTable')->where('condicion')->update(???)
-	DB::table('nTable')->where('condicion')->delete()
+	DB::table('nTable')->insert(???);
+	DB::table('nTable')->where('condicion')->update(???);
+	DB::table('nTable')->where('condicion')->delete();
 
