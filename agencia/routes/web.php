@@ -207,6 +207,6 @@ Route::get('/destinos', function ()
 
 Route::get('/destino/create', function ()
 {
-    
+
 });
 
