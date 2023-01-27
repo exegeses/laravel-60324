@@ -87,6 +87,16 @@ main{
         font-weight: 500;
     }
 
+/* paginador */
+.page-item .page-link{
+    color: #3c3c3c;
+}
+
+.page-item.active .page-link{
+    background-color: #3c3c3c;
+    border-color: #3c3c3c;
+}
+
 footer{
     position: fixed;
     bottom: 0px;

@@ -16,7 +16,7 @@ class MarcaController extends Controller
     {
         //obtenemos listado de marcas
         //$marcas = DB::table('marcas')->get();
-        $marcas = Marca::orderBy('mkNombre')->paginate(3);
+        $marcas = Marca::orderBy('mkNombre')->paginate(7);
         return view('marcas', [ 'marcas'=>$marcas ]);
     }
 
@@ -104,9 +104,13 @@ class MarcaController extends Controller
      * @param  \App\Models\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function edit(Marca $marca)
+    public function edit( $id )
     {
-        //
+        //obtenemos datos de una marca por su id
+        //$Marca = DB::table('marcas')->where('idMarca', $id)->first();
+        $Marca = Marca::find($id);
+        //retu¡ornamos vista pasando datos de la marca
+        return view('marcaEdit', [ 'Marca'=>$Marca ]);
     }
 
     /**
@@ -116,9 +120,39 @@ class MarcaController extends Controller
      * @param  \App\Models\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Marca $marca)
+    public function update(Request $request)
     {
-        //
+        //capturamos dato enviador por el form
+        $mkNombre = $request->mkNombre;
+        $idMarca = $request->idMarca;
+
+        //validación
+        $this->validarForm($request);
+        try {
+            //obtenemos una marca por su id
+            $Marca = Marca::find($idMarca);
+            //modificación de atributos
+            $Marca->mkNombre = $mkNombre;
+            //almacenamos cambios
+            $Marca->save();
+            //redirección con mensaje ok;
+            return redirect('/marcas')
+                ->with(
+                    [
+                        'mensaje'=>'Marca: '.$mkNombre.' modificada correctamente',
+                        'css'=>'success'
+                    ]
+                );
+        }
+        catch ( \Throwable $th ){
+            return redirect('/marcas')
+                ->with(
+                    [
+                        'mensaje'=>'No se pudo modificar la marca: '.$mkNombre,
+                        'css'=>'danger'
+                    ]
+                );
+        }
     }
 
     /**
