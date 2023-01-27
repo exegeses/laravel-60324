@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Marca;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class MarcaController extends Controller
@@ -155,14 +156,58 @@ class MarcaController extends Controller
         }
     }
 
+    public function confirm( $id, $marca )
+    {
+        //si NO hay productos de esa marca
+        //$check = Producto::where('idMarca', $id)->first(); //null|Producto
+        //$check = Producto::firstWhere('idMarca', $id); //null|Producto
+        $cantidad = Producto::where('idMarca', $id)->count(); // int
+        if( $cantidad ){
+            return redirect('/marcas')
+                ->with(
+                    [
+                        'mensaje'=>'No se puede eliminar la marca: '.$marca.' ya que tiene productos relacionados',
+                        'css'=>'warning'
+                    ]
+                );
+        }
+        return view('marcaDelete',
+                        [
+                            'idMarca'=>$id, 'mkNombre'=>$marca
+                        ]
+        );
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Marca $marca)
+    public function destroy(Request $request)
     {
-        //
+        $mkNombre = $request->mkNombre;
+        $idMarca = $request->idMarca;
+        try {
+            //$Marca = Marca::find($idMarca);
+            //$Marca->delete();
+            Marca::destroy($idMarca);
+            return redirect('/marcas')
+                    ->with(
+                        [
+                            'mensaje'=>'Marca: '.$mkNombre.' eliminada correctamente.',
+                            'css'=>'success'
+                        ]
+                    );
+        }
+        catch ( \Throwable $th ){
+            return redirect('/marcas')
+                ->with(
+                    [
+                        'mensaje'=>'No se pudo eliminar la marca: '.$mkNombre,
+                        'css'=>'danger'
+                    ]
+                );
+        }
     }
 }

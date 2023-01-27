@@ -35,7 +35,7 @@
                     <i class="bi bi-pencil-square"></i>
                     Modificar
                 </a>
-                <a href="/marca/delete/id" class="btn btn-outline-secondary me-1">
+                <a href="/marca/confirm/{{ $marca->idMarca }}/{{ $marca->mkNombre }}" class="btn btn-outline-secondary me-1">
                     <i class="bi bi-trash"></i>
                     &nbsp;Eliminar&nbsp;
                 </a>
