@@ -33,5 +33,9 @@
         </div>
     @endif
 
+    <script>
+        const mkNombre = document.querySelector('input[name="mkNombre"]');
+        mkNombre.focus();
+    </script>
 
 @endsection
