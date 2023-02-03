@@ -23,10 +23,11 @@
         </div>
     </div>
 
+
     @foreach( $productos as $producto )
     <div class="row mt-3">
         <figure class="col-3">
-            <img src="/imagenes/productos/noDisponible.png" class="img-thumbnail">
+            <img src="/imagenes/productos/{{ $producto->prdImagen }}" class="img-thumbnail">
         </figure>
         <div class="col-8">
             <h2>{{ $producto->prdNombre }}</h2>
