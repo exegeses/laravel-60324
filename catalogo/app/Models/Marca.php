@@ -10,4 +10,9 @@ class Marca extends Model
     use HasFactory;
     protected $primaryKey = 'idMarca';
     public $timestamps = false;
+
+    public function scopeAlfa( $query )
+    {
+        return $query->orderBy('mkNombre');
+    }
 }

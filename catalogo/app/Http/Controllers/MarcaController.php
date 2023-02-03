@@ -17,7 +17,7 @@ class MarcaController extends Controller
     {
         //obtenemos listado de marcas
         //$marcas = DB::table('marcas')->get();
-        $marcas = Marca::orderBy('mkNombre')->paginate(7);
+        $marcas = Marca::alfa()->paginate(7);
         return view('marcas', [ 'marcas'=>$marcas ]);
     }
 
