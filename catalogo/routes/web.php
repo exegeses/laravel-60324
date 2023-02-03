@@ -15,3 +15,7 @@ Route::get('/marca/edit/{id}', [ MarcaController::class, 'edit' ]);
 Route::put('/marca/update', [ MarcaController::class, 'update' ]);
 Route::get('/marca/confirm/{id}/{marca}', [ MarcaController::class, 'confirm' ]);
 Route::delete('/marca/destroy', [ MarcaController::class, 'destroy' ]);
+
+####### CRUD de productos
+use App\Http\Controllers\ProductoController;
+Route::get('/productos', [ ProductoController::class, 'index' ]);

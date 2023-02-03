@@ -23,17 +23,17 @@
         </div>
     </div>
 
-
+    @foreach( $productos as $producto )
     <div class="row mt-3">
         <figure class="col-3">
-            <img src="productos/noDisplible.png" class="img-thumbnail">
+            <img src="/imagenes/productos/noDisponible.png" class="img-thumbnail">
         </figure>
         <div class="col-8">
-            <h2>Nombre</h2>
-            <span class="precio3">$precio</span>
+            <h2>{{ $producto->prdNombre }}</h2>
+            <span class="precio3">${{ $producto->prdPrecio }}</span>
             <p>
-                Marca: marca <br>
-                Categoría: categoría <br>
+                Marca: {{ $producto->getMarca->mkNombre  }} <br>
+                Categoría: {{ $producto->getCategoria->catNombre }} <br>
                 Descripción
             </p>
         </div>
@@ -48,6 +48,8 @@
             </a>
         </div>
     </div>
+    @endforeach
 
+    {{ $productos->links() }}
 
 @endsection
