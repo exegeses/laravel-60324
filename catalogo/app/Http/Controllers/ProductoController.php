@@ -102,7 +102,34 @@ class ProductoController extends Controller
         $idCategoria = $request->idCategoria;
         $prdDescripcion = $request->prdDescripcion;
         $prdImagen = $this->subirImagen($request);
-        return 'archivo: '.$prdImagen;
+        $prdActivo = 1;
+        try {
+            $Producto = new Producto;
+            $Producto->prdNombre = $prdNombre;
+            $Producto->prdPrecio = $prdPrecio;
+            $Producto->idMarca = $idMarca;
+            $Producto->idCategoria = $idCategoria;
+            $Producto->prdDescripcion = $prdDescripcion;
+            $Producto->prdImagen = $prdImagen;
+            $Producto->prdActivo = $prdActivo;
+            $Producto->save();
+            return redirect('/productos')
+                ->with(
+                    [
+                        'mensaje'=>'Producto: '.$prdNombre.' agregado correctamente',
+                        'css'=>'success'
+                    ]
+                );
+        }
+        catch ( \Throwable $th ){
+            return redirect('/productos')
+                ->with(
+                    [
+                        'mensaje'=>'No se pudo agregar el producto: '.$prdNombre,
+                        'css'=>'danger'
+                    ]
+                );
+        }
     }
 
     /**
