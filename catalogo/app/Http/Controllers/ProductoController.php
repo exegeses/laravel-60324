@@ -40,11 +40,11 @@ class ProductoController extends Controller
         );
     }
 
-    private function validarForm( Request $request )
+    private function validarForm( Request $request, $idProducto = null )
     {
         $request->validate(
             [
-                'prdNombre'=>'required|unique:productos,prdNombre|min:3|max:75',
+                'prdNombre'=>'required|unique:productos,prdNombre,'.$idProducto.',idProducto|min:3|max:75',
                 'prdPrecio'=>'required|numeric|min:0',
                 'idMarca'=>'required',
                 'idCategoria'=>'required',
