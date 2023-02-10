@@ -35,15 +35,15 @@
             <p>
                 Marca: {{ $producto->getMarca->mkNombre  }} <br>
                 Categoría: {{ $producto->getCategoria->catNombre }} <br>
-                Descripción
+                Descripción: {{ $producto->prdDescripcion }}
             </p>
         </div>
         <div class="col-1 d-grid d-md-block">
-            <a href="" class="btn btn-outline-secondary me-1">
+            <a href="/producto/edit/{{ $producto->idProducto }}" class="btn btn-outline-secondary me-1">
                 <i class="bi bi-pencil-square"></i>
                 Modificar
             </a>
-            <a href="" class="btn btn-outline-secondary me-1">
+            <a href="/producto/confirm/{{ $producto->idProducto }}/{{ $producto->prdNombre }}" class="btn btn-outline-secondary me-1">
                 <i class="bi bi-trash"></i>
                 &nbsp;Eliminar&nbsp;
             </a>

@@ -73,6 +73,11 @@ class ProductoController extends Controller
         //si no enviaron archivo  store()
         $prdImagen = 'noDisponible.png';
 
+        //si no enviaron archivo  update()
+        if( $request->has('prdImagenOld') ){
+            $prdImagen = $request->prdImagenOld;
+        }
+
         //si enviaron imagen
         if( $request->file('prdImagen') ){
             $file = $request->file('prdImagen');
@@ -149,9 +154,20 @@ class ProductoController extends Controller
      * @param  \App\Models\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function edit(Producto $producto)
+    public function edit( $idProducto )
     {
-        //
+        //obtenemos datos de un producto por su id
+        $Producto = Producto::find($idProducto);
+        //obtenemos listadod e marcas y de categorías
+        $marcas = Marca::all();
+        $categorias = Categoria::all();
+        return view('productoEdit',
+            [
+                'Producto'=>$Producto,
+                'marcas'=>$marcas,
+                'categorias'=>$categorias
+            ]
+        );
     }
 
     /**
@@ -161,9 +177,43 @@ class ProductoController extends Controller
      * @param  \App\Models\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Producto $producto)
+    public function update(Request $request)
     {
-        //
+        //validación
+        $this->validarForm($request, $request->idProducto);
+        $idProducto = $request->idProducto;
+        $prdNombre = $request->prdNombre;
+        $prdPrecio = $request->prdPrecio;
+        $idMarca = $request->idMarca;
+        $idCategoria = $request->idCategoria;
+        $prdDescripcion = $request->prdDescripcion;
+        $prdImagen = $this->subirImagen($request);
+        try{
+            $Producto = Producto::find($idProducto);
+            $Producto->prdNombre = $prdNombre;
+            $Producto->prdPrecio = $prdPrecio;
+            $Producto->idMarca = $idMarca;
+            $Producto->idCategoria = $idCategoria;
+            $Producto->prdDescripcion = $prdDescripcion;
+            $Producto->prdImagen = $prdImagen;
+            $Producto->save();
+            return redirect('/productos')
+                ->with(
+                    [
+                        'mensaje'=>'Producto: '.$prdNombre.' modificado correctamente',
+                        'css'=>'success'
+                    ]
+                );
+        }
+        catch ( \Throwable $th ){
+            return redirect('/productos')
+                ->with(
+                    [
+                        'mensaje'=>'No se pudo modificar el producto: '.$prdNombre,
+                        'css'=>'danger'
+                    ]
+                );
+        }
     }
 
     /**
