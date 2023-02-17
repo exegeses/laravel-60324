@@ -23,3 +23,5 @@ Route::get('/producto/create', [ ProductoController::class, 'create' ]);
 Route::post('/producto/store', [ ProductoController::class, 'store' ]);
 Route::get('/producto/edit/{id}', [ ProductoController::class, 'edit' ]);
 Route::put('/producto/update', [ ProductoController::class, 'update' ]);
+Route::get('/producto/confirm/{id}', [ ProductoController::class, 'confirm' ]);
+Route::delete('/producto/delete', [ ProductoController::class, 'destroy' ]);
